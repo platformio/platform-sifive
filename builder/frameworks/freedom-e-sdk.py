@@ -39,7 +39,7 @@ def is_valid_target(target):
 
 env.SConscript("_bare.py", exports="env")
 
-target = env.subst("$BOARD")
+target = env.subst("sifive-${BOARD}")
 
 env.Append(
     CCFLAGS=[
