@@ -5,6 +5,7 @@ environment:
     # - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_dhrystone"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_hello"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_multicore-hello"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_sifive-welcome"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_spi"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_test-coreip"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_timer-interrupt"
