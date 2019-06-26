@@ -36,7 +36,7 @@
     },
     "toolchain-riscv": {
       "type": "toolchain",
-      "version": "~1.80201.20190626"
+      "version": "~1.80201.0"
     }
   }
 }
