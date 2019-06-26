@@ -1,0 +1,30 @@
+build: off
+environment:
+
+  matrix:
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_dhrystone"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_hello"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_multicore-hello"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_spi"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_test-coreip"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_timer-interrupt"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_user-mode"
+    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_user-syscall"
+    - PLATFORMIO_PROJECT_DIR: "examples/native-blink_asm"
+
+install:
+- cmd: git submodule update --init --recursive
+- cmd: SET PATH=%PATH%;C:\Python27\Scripts
+- cmd: pip install -U https://github.com/platformio/platformio/archive/develop.zip
+- cmd: platformio platform install file://.
+
+test_script:
+- cmd: platformio run -d %PLATFORMIO_PROJECT_DIR%
+
+notifications:
+  - provider: Slack
+    incoming_webhook:
+      secure: E9H0SU0Ju7WLDvgxsV8cs3J62T3nTTX7QkEjsczN0Sto/c9hWkVfhc5gGWUkxhlD975cokHByKGJIdwYwCewqOI+7BrcT8U+nlga4Uau7J8=
+    on_build_success: false
+    on_build_failure: true
+    on_build_status_changed: true

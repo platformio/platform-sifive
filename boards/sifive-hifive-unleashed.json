@@ -1,0 +1,59 @@
+{
+  "build": {
+    "f_cpu": "1500000000L",
+    "hwids": [
+      [
+        "0x0403",
+        "0x6010"
+      ]
+    ],
+    "ldscript": "metal.default.lds",
+    "mabi": "lp64",
+    "march": "rv64imac",
+    "mcmodel": "medany",
+    "mcu": "fu540"
+  },
+  "debug": {
+    "svd_path": "???? TODO",
+    "tools": {
+      "ftdi": {
+        "init_cmds": [
+          "define pio_reset_halt_target",
+          "   monitor init",
+          "   monitor halt",
+          "end",
+          "define pio_reset_target",
+          "   pio_reset_halt_target",
+          "end",
+          "target remote $DEBUG_PORT",
+          "set arch riscv:rv64",
+          "set mem inaccessible-by-default off",
+          "set remotetimeout 250",
+          "$INIT_BREAK",
+          "$LOAD_CMD",
+          "pio_reset_halt_target"
+        ],
+        "onboard": true,
+        "server": {
+          "arguments": [
+            "-f",
+            "share/openocd/scripts/board/sifive-hifive1.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd-riscv"
+        }
+      }
+    }
+  },
+  "frameworks": [
+    "freedom-e-sdk"
+  ],
+  "name": "HiFive Unleashed",
+  "upload": {
+    "maximum_ram_size": 8589934592,
+    "maximum_size": 33554432,
+    "protocol": "ftdi"
+  },
+  "url": "https://www.sifive.com/boards/hifive-unleashed",
+  "vendor": "SiFive"
+} 

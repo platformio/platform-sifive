@@ -1,0 +1,31 @@
+language: python
+python:
+  - "2.7"
+  - "3.6"
+
+env:
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_dhrystone
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_hello
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_multicore-hello
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_spi
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_test-coreip
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_timer-interrupt
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_user-mode
+  - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_user-syscall
+  - PLATFORMIO_PROJECT_DIR=examples/native-blink_asm
+
+install:
+  - pip install -U https://github.com/platformio/platformio/archive/develop.zip
+  - platformio platform install file://.
+
+script:
+  - platformio run -d $PLATFORMIO_PROJECT_DIR
+
+notifications:
+  email: false
+
+  slack:
+    rooms:
+      secure: wOhUmH8I8XDDxv5Zw2b/+hte7OGrAPoZ1YdZkBqjQg3WcliZRnPH5GV0uUIAOy2zqXoVE1lBqynTmXjAO3nU1mFPqjm8kWtwnROv52XND7bnYoDziJJvZVKMi2akNv9Q7MXcw4G0T9HxIEF626z7jzH+Q/TlTtFzRIX2sbfvRKxZ00iF6wxY77/YNBM+Udn9Mo2WVCyl2dcsOVnl/bffxHEqEB0gNmjFIM1UmEFYNVwGkqczOajLIMfIcH5WfY9YxSXriV2O7Aq6yuIDuzyVJ1UiUMYXB0uO0ZJzV8OSQf7RMBHxMFAVbNgbqCEcB15HiqDUCoVYkxSE2HZM7LQSAY+a4Snd5e0h6mxeyJyAgyf6Ltvdwo+4t6RH6KIWvGmdTo/nM6UiV1WBnoXUos3K+ZWCrTcwh+5mYn6FWFpqHIUrndNtkY3PCIzcxPgMAM87mGGGXe9w9tH6rT+zkqfabHRC1JQz2W+uTUePdEPbei9XQO5lIRAY0o8J6SHbM91cGLB48feJ7AfGSsSYciFNLBIQMNmEzVuzQngHJP7AC2vsrczwReHyR1vjLQhwaacI0W6oQ0kKbANA835cjOGCVRKDr1uvd8xiOVxRnL/qP5GlF36TwGjkl4SJj2gYIQMU6YeMTd1cxZi7iWgu+gDcJPqQ6mkr5jQSiKMRJUzuP98=
+    on_failure: always
+    on_success: change

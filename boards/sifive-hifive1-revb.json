@@ -1,0 +1,59 @@
+{
+  "build": {
+    "f_cpu": "320000000L",
+    "hwids": [
+      [
+        "0x0403",
+        "0x6010"
+      ]
+    ],
+    "ldscript": "metal.default.lds",
+    "mabi": "ilp32",
+    "march": "rv32imac",
+    "mcmodel": "medlow",
+    "mcu": "fe310"
+  },
+  "debug": {
+    "svd_path": "FE310.svd",
+    "tools": {
+      "ftdi": {
+        "init_cmds": [
+          "define pio_reset_halt_target",
+          "   monitor init",
+          "   monitor halt",
+          "end",
+          "define pio_reset_target",
+          "   pio_reset_halt_target",
+          "end",
+          "target remote $DEBUG_PORT",
+          "set arch riscv:rv32",
+          "set mem inaccessible-by-default off",
+          "set remotetimeout 250",
+          "$INIT_BREAK",
+          "$LOAD_CMD",
+          "pio_reset_halt_target"
+        ],
+        "onboard": true,
+        "server": {
+          "arguments": [
+            "-f",
+            "share/openocd/scripts/board/sifive-hifive1.cfg"
+          ],
+          "executable": "bin/openocd",
+          "package": "tool-openocd-riscv"
+        }
+      }
+    }
+  },
+  "frameworks": [
+    "freedom-e-sdk"
+  ],
+  "name": "HiFive1 Rev B",
+  "upload": {
+    "maximum_ram_size": 16384,
+    "maximum_size": 16777216,
+    "protocol": "ftdi"
+  },
+  "url": "https://www.sifive.com/boards/hifive1-rev-b",
+  "vendor": "SiFive"
+} 
