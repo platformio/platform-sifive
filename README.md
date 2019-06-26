@@ -1,6 +1,6 @@
 # SiFive: development platform for [PlatformIO](http://platformio.org)
 [![Build Status](https://travis-ci.org/platformio/platform-sifive.svg?branch=develop)](https://travis-ci.org/platformio/platform-sifive)
-[![Build status](https://ci.appveyor.com/api/projects/status/bg71nvtdwpy989n9/branch/develop?svg=true)](https://ci.appveyor.com/project/ivankravets/platform-sifive/branch/develop)
+[![Build status](https://ci.appveyor.com/api/projects/status/pm59mq539ttp51hd/branch/develop?svg=true)](https://ci.appveyor.com/project/ivankravets/platform-sifive/branch/develop)
 
 SiFive brings the power of open source and software automation to the semiconductor industry, making it possible to develop new hardware faster and more affordably than ever before. 
 

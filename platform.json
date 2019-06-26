@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-sifive.git"
   },
-  "version": "0.1.0",
+  "version": "0.0.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -24,6 +24,10 @@
     }
   },
   "packages": {
+    "toolchain-riscv": {
+      "type": "toolchain",
+      "version": "~1.80200.0"
+    },
     "framework-freedom-e-sdk": {
       "optional": true,
       "type": "framework",
@@ -32,11 +36,7 @@
     "tool-openocd-riscv": {
       "optional": true,
       "type": "uploader",
-      "version": "~2.1000.20190626"
-    },
-    "toolchain-riscv": {
-      "type": "toolchain",
-      "version": "~1.80201.0"
+      "version": "~2.1000.0"
     }
   }
 }
