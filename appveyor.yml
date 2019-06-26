@@ -2,7 +2,7 @@ build: off
 environment:
 
   matrix:
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_dhrystone"
+    # - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_dhrystone"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_hello"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_multicore-hello"
     - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_spi"
