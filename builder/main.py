@@ -13,10 +13,12 @@
 # limitations under the License.
 
 import sys
-from os.path import join
+from platform import system
+from os import makedirs
+from os.path import isdir, join
 
 from SCons.Script import (ARGUMENTS, COMMAND_LINE_TARGETS, AlwaysBuild,
-                          Default, DefaultEnvironment)
+                          Builder, Default, DefaultEnvironment)
 
 
 env = DefaultEnvironment()
@@ -44,6 +46,21 @@ env.Replace(
 if env.get("PROGNAME", "program") == "program":
     env.Replace(PROGNAME="firmware")
 
+env.Append(
+    BUILDERS=dict(
+        ElfToHex=Builder(
+            action=env.VerboseAction(" ".join([
+                "$OBJCOPY",
+                "-O",
+                "ihex",
+                "$SOURCES",
+                "$TARGET"
+            ]), "Building $TARGET"),
+            suffix=".hex"
+        )
+    )
+)
+
 if not env.get("PIOFRAMEWORK"):
     env.SConscript("frameworks/_bare.py", exports="env")
 
@@ -54,8 +71,10 @@ if not env.get("PIOFRAMEWORK"):
 target_elf = None
 if "nobuild" in COMMAND_LINE_TARGETS:
     target_elf = join("$BUILD_DIR", "${PROGNAME}.elf")
+    target_hex = join("$BUILD_DIR", "${PROGNAME}.hex")
 else:
     target_elf = env.BuildProgram()
+    target_hex = env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
 
 AlwaysBuild(env.Alias("nobuild", target_elf))
 target_buildprog = env.Alias("buildprog", target_elf, target_elf)
@@ -76,8 +95,41 @@ AlwaysBuild(target_size)
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 debug_tools = board_config.get("debug.tools", {})
 upload_actions = []
+upload_target = target_elf
 
-if upload_protocol in debug_tools:
+if upload_protocol.startswith("jlink"):
+
+    def _jlink_cmd_script(env, source):
+        build_dir = env.subst("$BUILD_DIR")
+        if not isdir(build_dir):
+            makedirs(build_dir)
+        script_path = join(build_dir, "upload.jlink")
+        commands = [
+            "h",
+            "loadfile %s" % source,
+            "r",
+            "q"
+        ]
+        with open(script_path, "w") as fp:
+            fp.write("\n".join(commands))
+        return script_path
+
+    env.Replace(
+        __jlink_cmd_script=_jlink_cmd_script,
+        UPLOADER="JLink.exe" if system() == "Windows" else "JLinkExe",
+        UPLOADERFLAGS=[
+            "-device", env.BoardConfig().get("debug", {}).get("jlink_device"),
+            "-speed", "1000",
+            "-if", "JTAG",
+            "-jtagconf", "-1,-1",
+            "-autoconnect", "1"
+        ],
+        UPLOADCMD='$UPLOADER $UPLOADERFLAGS -CommanderScript "${__jlink_cmd_script(__env__, SOURCE)}"'
+    )
+    upload_target = target_hex
+    upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
+
+elif upload_protocol in debug_tools:
     openocd_args = [
         "-c",
         "debug_level %d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1),
@@ -102,7 +154,7 @@ elif upload_protocol == "custom":
 else:
     sys.stderr.write("Warning! Unknown upload protocol %s\n" % upload_protocol)
 
-AlwaysBuild(env.Alias("upload", target_elf, upload_actions))
+AlwaysBuild(env.Alias("upload", upload_target, upload_actions))
 
 
 #

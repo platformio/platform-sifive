@@ -29,7 +29,6 @@
       "version": "~1.80200.0"
     },
     "framework-freedom-e-sdk": {
-      "optional": true,
       "type": "framework",
       "version": "~1.201905.0"
     },
@@ -37,6 +36,11 @@
       "optional": true,
       "type": "uploader",
       "version": "~2.1000.0"
+    },
+    "tool-jlink": {
+      "type": "uploader",
+      "optional": true,
+      "version": "^1.63208.0"
     }
   }
 }

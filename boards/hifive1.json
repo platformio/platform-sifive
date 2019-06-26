@@ -14,36 +14,23 @@
     "mcu": "fe310"
   },
   "debug": {
+    "init_cmds": [
+      "define pio_reset_halt_target",
+      "   monitor halt",
+      "end",
+      "define pio_reset_target",
+      "   pio_reset_halt_target",
+      "end",
+      "target extended-remote $DEBUG_PORT",
+      "$INIT_BREAK",
+      "$LOAD_CMDS",
+      "monitor init",
+      "pio_reset_halt_target"
+    ],
     "svd_path": "FE310.svd",
-    "tools": {
-      "ftdi": {
-        "init_cmds": [
-          "define pio_reset_halt_target",
-          "   monitor init",
-          "   monitor halt",
-          "end",
-          "define pio_reset_target",
-          "   pio_reset_halt_target",
-          "end",
-          "target remote $DEBUG_PORT",
-          "set arch riscv:rv32",
-          "set mem inaccessible-by-default off",
-          "set remotetimeout 250",
-          "$INIT_BREAK",
-          "$LOAD_CMD",
-          "pio_reset_halt_target"
-        ],
-        "onboard": true,
-        "server": {
-          "arguments": [
-            "-f",
-            "share/openocd/scripts/board/sifive-hifive1.cfg"
-          ],
-          "executable": "bin/openocd",
-          "package": "tool-openocd-riscv"
-        }
-      }
-    }
+    "onboard_tools": [
+      "ftdi"
+    ]
   },
   "frameworks": [
     "freedom-e-sdk"
@@ -52,8 +39,11 @@
   "upload": {
     "maximum_ram_size": 16384,
     "maximum_size": 16777216,
-    "protocol": "ftdi"
+    "protocol": "ftdi",
+    "protocols": [
+      "ftdi"
+    ]
   },
   "url": "https://www.sifive.com/products/hifive1/",
   "vendor": "SiFive"
-} 
+}
