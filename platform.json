@@ -41,6 +41,11 @@
       "type": "uploader",
       "optional": true,
       "version": "^1.63208.0"
+    },
+    "tool-qemu-riscv": {
+      "type": "debugger",
+      "optional": true,
+      "version": "~1.30100.0"
     }
   }
 }

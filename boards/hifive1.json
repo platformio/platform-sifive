@@ -41,7 +41,8 @@
     "maximum_size": 16777216,
     "protocol": "ftdi",
     "protocols": [
-      "ftdi"
+      "ftdi",
+      "qemu"
     ]
   },
   "url": "https://www.sifive.com/products/hifive1/",

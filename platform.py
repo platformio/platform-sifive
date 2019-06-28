@@ -38,7 +38,7 @@ class SifivePlatform(PlatformBase):
         if "tools" not in debug:
             debug['tools'] = {}
 
-        tools = ("ftdi", "jlink")
+        tools = ("ftdi", "jlink", "qemu")
         for link in tools:
             if link not in upload_protocols or link in debug['tools']:
                 continue
@@ -64,6 +64,24 @@ class SifivePlatform(PlatformBase):
                     "onboard": link in debug.get("onboard_tools", [])
                 }
 
+            elif link == "qemu":
+                machine64bit = "64" in board.get("build.mabi")
+                debug['tools'][link] = {
+                    "server": {
+                        "package": "tool-qemu-riscv",
+                        "arguments": [
+                            "-nographic",
+                            "-machine", "sifive_%s" % (
+                                "u" if machine64bit else "e"),
+                            "-d", "unimp,guest_errors",
+                            "-gdb", "tcp::1234",
+                            "-S"
+                        ],
+                        "executable": "bin/qemu-system-riscv%s" % (
+                            "64" if machine64bit else "32")
+                    },
+                    "onboard": True
+                }
             else:
                 server_args = [
                     "-s", "$PACKAGE_DIR/share/openocd/scripts",

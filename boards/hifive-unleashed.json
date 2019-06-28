@@ -27,7 +27,8 @@
     "maximum_size": 33554432,
     "protocol": "ftdi",
     "protocols": [
-      "ftdi"
+      "ftdi",
+      "qemu"
     ]
   },
   "url": "https://www.sifive.com/boards/hifive-unleashed",
