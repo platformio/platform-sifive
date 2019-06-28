@@ -40,6 +40,8 @@ def is_valid_target(target):
 env.SConscript("_bare.py", exports="env")
 
 target = env.subst("sifive-${BOARD}")
+if env.subst("$BOARD") == "e310-arty":
+    target = "freedom-e310-arty"
 
 env.Append(
     CCFLAGS=[
