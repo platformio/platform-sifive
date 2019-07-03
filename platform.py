@@ -102,6 +102,8 @@ class SifivePlatform(PlatformBase):
                         "-f", join(
                             sdk_dir, "bsp", "freedom-e310-arty", "openocd.cfg")
                     ])
+                else:
+                    assert "Unknown debug configuration", board.id
                 debug['tools'][tool] = {
                     "server": {
                         "package": "tool-openocd-riscv",
