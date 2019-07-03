@@ -30,7 +30,8 @@
     "svd_path": "FE310.svd",
     "onboard_tools": [
       "ftdi"
-    ]
+    ],
+    "qemu_machine": "sifive_e"
   },
   "frameworks": [
     "freedom-e-sdk"
@@ -41,8 +42,7 @@
     "maximum_size": 16777216,
     "protocol": "ftdi",
     "protocols": [
-      "ftdi",
-      "qemu"
+      "ftdi"
     ]
   },
   "url": "https://www.sifive.com/products/hifive1/",

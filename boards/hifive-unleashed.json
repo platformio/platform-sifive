@@ -16,7 +16,8 @@
   "debug": {
     "onboard_tools": [
       "ftdi"
-    ]
+    ],
+    "qemu_machine": "sifive_u"
   },
   "frameworks": [
     "freedom-e-sdk"
@@ -27,8 +28,7 @@
     "maximum_size": 33554432,
     "protocol": "ftdi",
     "protocols": [
-      "ftdi",
-      "qemu"
+      "ftdi"
     ]
   },
   "url": "https://www.sifive.com/boards/hifive-unleashed",

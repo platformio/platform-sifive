@@ -30,7 +30,7 @@
     },
     "framework-freedom-e-sdk": {
       "type": "framework",
-      "version": "~1.201905.0"
+      "version": "~2.201905.0"
     },
     "tool-openocd-riscv": {
       "optional": true,

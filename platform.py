@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import join
+from os.path import isfile, join
 from platform import system
 
 from platformio.managers.platform import PlatformBase
@@ -33,19 +33,24 @@ class SifivePlatform(PlatformBase):
 
     def _add_default_debug_tools(self, board):
         debug = board.manifest.get("debug", {})
-        upload_protocols = board.manifest.get("upload", {}).get(
-            "protocols", [])
+        upload_protocols = board.manifest.get("upload",
+                                              {}).get("protocols", [])
         if "tools" not in debug:
             debug['tools'] = {}
 
-        tools = ("ftdi", "jlink", "qemu")
-        for link in tools:
-            if link not in upload_protocols or link in debug['tools']:
+        tools = ("jlink", "qemu", "ftdi", "minimodule",
+                 "olimex-arm-usb-tiny-h", "olimex-arm-usb-ocd-h",
+                 "olimex-arm-usb-ocd", "olimex-jtag-tiny", "tumpa")
+        for tool in tools:
+            if tool == "qemu":
+                if not debug.get("qemu_machine"):
+                    continue
+            elif (tool not in upload_protocols or tool in debug['tools']):
                 continue
-            if link == "jlink":
+            if tool == "jlink":
                 assert debug.get("jlink_device"), (
                     "Missed J-Link Device ID for %s" % board.id)
-                debug['tools'][link] = {
+                debug['tools'][tool] = {
                     "server": {
                         "package": "tool-jlink",
                         "arguments": [
@@ -61,18 +66,17 @@ class SifivePlatform(PlatformBase):
                                        if system() == "Windows" else
                                        "JLinkGDBServer")
                     },
-                    "onboard": link in debug.get("onboard_tools", [])
+                    "onboard": tool in debug.get("onboard_tools", [])
                 }
 
-            elif link == "qemu":
+            elif tool == "qemu":
                 machine64bit = "64" in board.get("build.mabi")
-                debug['tools'][link] = {
+                debug['tools'][tool] = {
                     "server": {
                         "package": "tool-qemu-riscv",
                         "arguments": [
                             "-nographic",
-                            "-machine", "sifive_%s" % (
-                                "u" if machine64bit else "e"),
+                            "-machine", debug.get("qemu_machine"),
                             "-d", "unimp,guest_errors",
                             "-gdb", "tcp::1234",
                             "-S"
@@ -84,22 +88,29 @@ class SifivePlatform(PlatformBase):
                 }
             else:
                 server_args = [
-                    "-s", "$PACKAGE_DIR/share/openocd/scripts",
-                    "-f", join(
-                        self.get_package_dir("framework-freedom-e-sdk"),
-                        "bsp", "sifive-%s/openocd.cfg" % board.id)
+                    "-s", "$PACKAGE_DIR/share/openocd/scripts"
                 ]
-                debug['tools'][link] = {
+                sdk_dir = self.get_package_dir("framework-freedom-e-sdk")
+                board_cfg = join(
+                    sdk_dir, "bsp", "sifive-%s" % board.id, "openocd.cfg")
+                if isfile(board_cfg):
+                    server_args.extend(["-f", board_cfg])
+                elif board.id == "e310-arty":
+                    server_args.extend([
+                        "-f", join("interface", "ftdi", "%s.cfg" % (
+                            "arty-onboard-ftdi" if tool == "ftdi" else tool)),
+                        "-f", join(
+                            sdk_dir, "bsp", "freedom-e310-arty", "openocd.cfg")
+                    ])
+                debug['tools'][tool] = {
                     "server": {
                         "package": "tool-openocd-riscv",
                         "executable": "bin/openocd",
                         "arguments": server_args
                     },
-                    "onboard": link in debug.get("onboard_tools", []),
+                    "onboard": tool in debug.get("onboard_tools", []),
                     "init_cmds": debug.get("init_cmds", None)
                 }
-                if link == "stlink":
-                    debug['tools'][link]['load_cmd'] = "preload"
 
         board.manifest['debug'] = debug
         return board
