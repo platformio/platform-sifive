@@ -1,0 +1,36 @@
+{
+  "build": {
+    "f_cpu": "1500000000L",
+    "hwids": [
+      [
+        "0x0403",
+        "0x6010"
+      ]
+    ],
+    "ldscript": "metal.default.lds",
+    "mabi": "lp64",
+    "march": "rv64imac",
+    "mcmodel": "medany",
+    "mcu": "fu540"
+  },
+  "debug": {
+    "onboard_tools": [
+      "ftdi"
+    ],
+    "qemu_machine": "sifive_u"
+  },
+  "frameworks": [
+    "freedom-e-sdk"
+  ],
+  "name": "HiFive Unleashed",
+  "upload": {
+    "maximum_ram_size": 8589934592,
+    "maximum_size": 33554432,
+    "protocol": "ftdi",
+    "protocols": [
+      "ftdi"
+    ]
+  },
+  "url": "https://www.sifive.com/boards/hifive-unleashed",
+  "vendor": "SiFive"
+}

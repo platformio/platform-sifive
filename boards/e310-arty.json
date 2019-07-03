@@ -1,0 +1,43 @@
+{
+  "build": {
+    "f_cpu": "450000000L",
+    "hwids": [
+      [
+        "0x002a",
+        "0x15ba"
+      ]
+    ],
+    "ldscript": "metal.default.lds",
+    "mabi": "ilp32",
+    "march": "rv32imac",
+    "mcmodel": "medlow",
+    "mcu": "fe310"
+  },
+  "debug": {
+    "jlink_device": "FE310",
+    "svd_path": "FE310.svd",
+    "onboard_tools": ["ftdi"],
+    "qemu_machine": "sifive_e"
+  },
+  "frameworks": [
+    "freedom-e-sdk"
+  ],
+  "name": "Arty FPGA Dev Kit",
+  "upload": {
+    "maximum_ram_size": 268435456,
+    "maximum_size": 16777216,
+    "protocol": "ftdi",
+    "protocols": [
+      "ftdi",
+      "jlink",
+      "minimodule",
+      "olimex-arm-usb-tiny-h",
+      "olimex-arm-usb-ocd-h",
+      "olimex-arm-usb-ocd",
+      "olimex-jtag-tiny",
+      "tumpa"
+    ]
+  },
+  "url": "https://store.digilentinc.com/arty-a7-artix-7-fpga-development-board-for-makers-and-hobbyists/",
+  "vendor": "Xilinx"
+}

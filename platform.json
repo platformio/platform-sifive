@@ -1,0 +1,51 @@
+{
+  "name": "sifive",
+  "title": "SiFive",
+  "description": "SiFive brings the power of open source and software automation to the semiconductor industry, making it possible to develop new hardware faster and more affordably than ever before. ",
+  "url": "https://sifive.com",
+  "homepage": "http://platformio.org/platforms/sifive",
+  "license": "Apache-2.0",
+  "engines": {
+    "platformio": "<5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/platformio/platform-sifive.git"
+  },
+  "version": "0.1.0",
+  "packageRepositories": [
+    "https://dl.bintray.com/platformio/dl-packages/manifest.json",
+    "http://dl.platformio.org/packages/manifest.json"
+  ],
+  "frameworks": {
+    "freedom-e-sdk": {
+      "package": "framework-freedom-e-sdk",
+      "script": "builder/frameworks/freedom-e-sdk.py"
+    }
+  },
+  "packages": {
+    "toolchain-riscv": {
+      "type": "toolchain",
+      "version": "~1.80200.0"
+    },
+    "framework-freedom-e-sdk": {
+      "type": "framework",
+      "version": "~2.201905.0"
+    },
+    "tool-openocd-riscv": {
+      "optional": true,
+      "type": "uploader",
+      "version": "~2.1000.0"
+    },
+    "tool-jlink": {
+      "type": "uploader",
+      "optional": true,
+      "version": "^1.63208.0"
+    },
+    "tool-qemu-riscv": {
+      "type": "debugger",
+      "optional": true,
+      "version": "~1.30100.0"
+    }
+  }
+}
