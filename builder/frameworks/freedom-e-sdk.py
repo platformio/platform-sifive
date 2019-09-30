@@ -50,6 +50,10 @@ env.Append(
         "--specs=nano.specs"
     ],
 
+    LINKFLAGS=[
+        "-nostdlib"
+    ],
+
     CPPDEFINES=[
         ("PACKAGE_NAME", '\\"freedom-metal\\"'),
         ("PACKAGE_TARNAME", '\\"freedom-metal\\"'),
@@ -67,7 +71,9 @@ env.Append(
     LIBPATH=[
         "$BUILD_DIR",
         join(FRAMEWORK_DIR, "bsp", target)
-    ]
+    ],
+
+    LIBS=["gcc", "m"]
 )
 
 if not is_valid_target(target):
@@ -105,8 +111,7 @@ copyfile(
 libs = [
     env.BuildLibrary(
         join("$BUILD_DIR", "metal"),
-        join(FRAMEWORK_DIR, "freedom-metal", "src"),
-        src_filter="+<*> -<drivers/sifive_fu540-c000_l2.c>"
+        join(FRAMEWORK_DIR, "freedom-metal", "src")
     ),
 
     env.BuildLibrary(

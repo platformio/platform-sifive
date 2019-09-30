@@ -92,7 +92,7 @@ class SifivePlatform(PlatformBase):
                 ]
                 sdk_dir = self.get_package_dir("framework-freedom-e-sdk")
                 board_cfg = join(
-                    sdk_dir, "bsp", "sifive-%s" % board.id, "openocd.cfg")
+                    sdk_dir or "", "bsp", "sifive-%s" % board.id, "openocd.cfg")
                 if isfile(board_cfg):
                     server_args.extend(["-f", board_cfg])
                 elif board.id == "e310-arty":
@@ -100,7 +100,7 @@ class SifivePlatform(PlatformBase):
                         "-f", join("interface", "ftdi", "%s.cfg" % (
                             "arty-onboard-ftdi" if tool == "ftdi" else tool)),
                         "-f", join(
-                            sdk_dir, "bsp", "freedom-e310-arty", "openocd.cfg")
+                            sdk_dir or "", "bsp", "freedom-e310-arty", "openocd.cfg")
                     ])
                 else:
                     assert "Unknown debug configuration", board.id

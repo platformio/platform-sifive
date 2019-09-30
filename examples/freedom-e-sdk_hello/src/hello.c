@@ -1,15 +1,8 @@
+/* Copyright 2019 SiFive, Inc */
+/* SPDX-License-Identifier: Apache-2.0 */
+
 #include <stdio.h>
 
-void print_hello() {
-    puts("Hello from function!\n");
-}
-
-int main()
-{
-  puts("hello world!\n");
-  
-    while(1) {
-    }
-
-  return 0;
+int main() {
+    printf("Hello, World!\n");
 }
