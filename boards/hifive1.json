@@ -34,7 +34,8 @@
     "qemu_machine": "sifive_e"
   },
   "frameworks": [
-    "freedom-e-sdk"
+    "freedom-e-sdk",
+    "zephyr"
   ],
   "name": "HiFive1",
   "upload": {
