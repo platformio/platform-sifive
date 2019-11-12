@@ -2,19 +2,12 @@ build: off
 environment:
 
   matrix:
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_hello"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_multicore-hello"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_sifive-welcome"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_spi"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_test-coreip"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_timer-interrupt"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_user-mode"
-    - PLATFORMIO_PROJECT_DIR: "examples/freedom-e-sdk_user-syscall"
-    - PLATFORMIO_PROJECT_DIR: "examples/native-blink_asm"
-
+    - PLATFORMIO_PROJECT_DIR: "examples/zephyr-blink"
+    - PLATFORMIO_PROJECT_DIR: "examples/zephyr-hello-world"
+    - PLATFORMIO_PROJECT_DIR: "examples/zephyr-synchronization"
 install:
 - cmd: git submodule update --init --recursive
-- cmd: SET PATH=%PATH%;C:\Python27\Scripts
+- cmd: SET PATH=%PATH%;C:\Python36\Scripts
 - cmd: pip install -U https://github.com/platformio/platformio/archive/develop.zip
 - cmd: platformio platform install file://.
 

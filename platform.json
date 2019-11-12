@@ -21,6 +21,10 @@
     "freedom-e-sdk": {
       "package": "framework-freedom-e-sdk",
       "script": "builder/frameworks/freedom-e-sdk.py"
+    },
+    "zephyr": {
+      "package": "framework-zephyr",
+      "script": "builder/frameworks/zephyr.py"
     }
   },
   "packages": {
@@ -31,6 +35,11 @@
     "framework-freedom-e-sdk": {
       "type": "framework",
       "version": "~2.201908.0"
+    },
+    "framework-zephyr": {
+      "type": "framework",
+      "optional": true,
+      "version": "~1.20000.0"
     },
     "tool-openocd-riscv": {
       "optional": true,
@@ -46,6 +55,22 @@
       "type": "debugger",
       "optional": true,
       "version": "~1.40100.0"
+    },
+    "tool-cmake": {
+      "optional": true,
+      "version": "~3.15.0"
+    },
+    "tool-dtc": {
+      "optional": true,
+      "version": "~1.4.7"
+    },
+    "tool-ninja": {
+      "optional": true,
+      "version": "~1.9.0"
+    },
+    "tool-gperf": {
+      "optional": true,
+      "version": "^3.0.0"
     }
   }
 }
