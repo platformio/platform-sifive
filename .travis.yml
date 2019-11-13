@@ -1,6 +1,10 @@
 language: python
 python:
   - "3.6"
+  
+os:
+  - linux
+  - osx
 
 env:
   - PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
