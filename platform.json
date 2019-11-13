@@ -33,6 +33,7 @@
       "version": "~1.80300.0"
     },
     "framework-freedom-e-sdk": {
+      "optional": true,
       "type": "framework",
       "version": "~2.201908.0"
     },
