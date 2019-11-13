@@ -19,6 +19,8 @@
       "   monitor halt",
       "end",
       "define pio_reset_run_target",
+      "   monitor init",
+      "   continue",
       "end",
       "target extended-remote $DEBUG_PORT",
       "monitor init",
