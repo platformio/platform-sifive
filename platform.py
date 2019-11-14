@@ -16,9 +16,21 @@ from os.path import isfile, join
 from platform import system
 
 from platformio.managers.platform import PlatformBase
+from platformio.util import get_systype
 
 
 class SifivePlatform(PlatformBase):
+
+    def configure_default_packages(self, variables, targets): 
+        if "zephyr" in variables.get("pioframework", []):
+            for p in ("tool-cmake", "tool-dtc", "tool-ninja"):
+                self.packages[p]["optional"] = False
+            if "windows" not in get_systype():
+                self.packages['tool-gperf']['optional'] = False
+                
+                
+        return PlatformBase.configure_default_packages(self, variables,
+                                                       targets) 
 
     def get_boards(self, id_=None):
         result = PlatformBase.get_boards(self, id_)
