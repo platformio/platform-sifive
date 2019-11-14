@@ -11,7 +11,10 @@
     "mabi": "ilp32",
     "march": "rv32imac",
     "mcmodel": "medlow",
-    "mcu": "fe310"
+    "mcu": "fe310",
+    "zephyr": {
+       "variant": "hifive1_revb"
+    }
   },
   "debug": {
     "jlink_device": "FE310",
@@ -21,7 +24,8 @@
     ]
   },
   "frameworks": [
-    "freedom-e-sdk"
+    "freedom-e-sdk",
+    "zephyr"
   ],
   "name": "HiFive1 Rev B",
   "upload": {
