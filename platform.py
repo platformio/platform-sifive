@@ -23,8 +23,10 @@ class SifivePlatform(PlatformBase):
 
     def configure_default_packages(self, variables, targets): 
         if "zephyr" in variables.get("pioframework", []):
-            for p in ("tool-cmake", "tool-dtc", "tool-ninja"):
-                self.packages[p]["optional"] = False
+            for p in self.packages:
+                if p.startswith("framework-zephyr-") or p in (
+                    "tool-cmake", "tool-dtc", "tool-ninja"):
+                    self.packages[p]["optional"] = False
             if "windows" not in get_systype():
                 self.packages['tool-gperf']['optional'] = False
                 
