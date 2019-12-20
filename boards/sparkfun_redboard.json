@@ -1,0 +1,44 @@
+{
+  "build": {
+    "f_cpu": "320000000L",
+    "hwids": [
+      [
+        "0x0403",
+        "0x6010"
+      ]
+    ],
+    "ldscript": "metal.default.lds",
+    "mabi": "ilp32",
+    "march": "rv32imac",
+    "mcmodel": "medlow",
+    "mcu": "fe310",
+    "freedom-e-sdk": {
+       "variant": "sifive-hifive1-revb"
+    },
+    "zephyr": {
+       "variant": "hifive1_revb"
+    }
+  },
+  "debug": {
+    "jlink_device": "FE310",
+    "svd_path": "FE310.svd",
+    "onboard_tools": [
+      "jlink"
+    ]
+  },
+  "frameworks": [
+    "freedom-e-sdk",
+    "zephyr"
+  ],
+  "name": "SparkFun RED-V RedBoard",
+  "upload": {
+    "maximum_ram_size": 16384,
+    "maximum_size": 16777216,
+    "protocols": [
+      "jlink"
+    ],
+    "protocol": "jlink"
+  },
+  "url": "https://www.sparkfun.com/products/15594",
+  "vendor": "SparkFun"
+}
