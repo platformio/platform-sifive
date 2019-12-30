@@ -13,6 +13,19 @@ env:
   - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_user-mode
   - PLATFORMIO_PROJECT_DIR=examples/freedom-e-sdk_user-syscall
   - PLATFORMIO_PROJECT_DIR=examples/native-blink_asm
+  - PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
+  - PLATFORMIO_PROJECT_DIR=examples/zephyr-hello-world
+  - PLATFORMIO_PROJECT_DIR=examples/zephyr-synchronization
+  
+# Zephyr framework doesn't support python 2
+jobs:
+  exclude:
+    - python: "2.7"
+      env: PLATFORMIO_PROJECT_DIR=examples/zephyr-blink
+    - python: "2.7"
+      env: PLATFORMIO_PROJECT_DIR=examples/zephyr-hello-world
+    - python: "2.7"
+      env: PLATFORMIO_PROJECT_DIR=examples/zephyr-synchronization
 
 install:
   - pip install -U https://github.com/platformio/platformio/archive/develop.zip

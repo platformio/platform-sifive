@@ -16,9 +16,21 @@ from os.path import isfile, join
 from platform import system
 
 from platformio.managers.platform import PlatformBase
+from platformio.util import get_systype
 
 
 class SifivePlatform(PlatformBase):
+
+    def configure_default_packages(self, variables, targets):
+        if "zephyr" in variables.get("pioframework", []):
+            for p in self.packages:
+                if p.startswith("framework-zephyr-") or p in (
+                        "tool-cmake", "tool-dtc", "tool-ninja"):
+                    self.packages[p]["optional"] = False
+            if "windows" not in get_systype():
+                self.packages['tool-gperf']['optional'] = False
+
+        return PlatformBase.configure_default_packages(self, variables, targets)
 
     def get_boards(self, id_=None):
         result = PlatformBase.get_boards(self, id_)
@@ -66,7 +78,26 @@ class SifivePlatform(PlatformBase):
                                        if system() == "Windows" else
                                        "JLinkGDBServer")
                     },
-                    "onboard": tool in debug.get("onboard_tools", [])
+                    "onboard": tool in debug.get("onboard_tools", []),
+                    "init_cmds": [
+                        "define pio_reset_halt_target",
+                        "    monitor reset",
+                        "    monitor halt",
+                        "end",
+                        "",
+                        "define pio_reset_run_target",
+                        "    monitor clrbp",
+                        "    monitor reset",
+                        "    monitor go",
+                        "end",
+                        "",
+                        "target extended-remote $DEBUG_PORT",
+                        "monitor clrbp",
+                        "monitor speed auto",
+                        "pio_reset_halt_target",
+                        "$LOAD_CMDS",
+                        "$INIT_BREAK"
+                    ]  # FIXME: Remove custom "init_cmds" when PIO Core 4.1.1 released
                 }
 
             elif tool == "qemu":

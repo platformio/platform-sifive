@@ -12,6 +12,9 @@
     "march": "rv32imac",
     "mcmodel": "medlow",
     "mcu": "fe310",
+    "freedom-e-sdk": {
+       "variant": "sifive-hifive1-revb"
+    },
     "zephyr": {
        "variant": "hifive1_revb"
     }
@@ -27,7 +30,7 @@
     "freedom-e-sdk",
     "zephyr"
   ],
-  "name": "HiFive1 Rev B",
+  "name": "SparkFun RED-V Thing Plus",
   "upload": {
     "maximum_ram_size": 16384,
     "maximum_size": 16777216,
@@ -36,6 +39,6 @@
     ],
     "protocol": "jlink"
   },
-  "url": "https://www.sifive.com/boards/hifive1-rev-b",
-  "vendor": "SiFive"
+  "url": "https://www.sparkfun.com/products/15799",
+  "vendor": "SparkFun"
 }

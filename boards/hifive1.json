@@ -18,14 +18,15 @@
       "define pio_reset_halt_target",
       "   monitor halt",
       "end",
-      "define pio_reset_target",
-      "   pio_reset_halt_target",
+      "define pio_reset_run_target",
+      "   monitor init",
+      "   continue",
       "end",
       "target extended-remote $DEBUG_PORT",
-      "$INIT_BREAK",
-      "$LOAD_CMDS",
       "monitor init",
-      "pio_reset_halt_target"
+      "$LOAD_CMDS",
+      "pio_reset_halt_target",
+      "$INIT_BREAK"
     ],
     "svd_path": "FE310.svd",
     "onboard_tools": [
@@ -34,7 +35,8 @@
     "qemu_machine": "sifive_e"
   },
   "frameworks": [
-    "freedom-e-sdk"
+    "freedom-e-sdk",
+    "zephyr"
   ],
   "name": "HiFive1",
   "upload": {
