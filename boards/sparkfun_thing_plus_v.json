@@ -1,20 +1,20 @@
 {
   "build": {
     "f_cpu": "320000000L",
+    "freedom-e-sdk": {
+      "ldscript": "metal.default.lds",
+      "variant": "sifive-hifive1-revb"
+    },
     "hwids": [
       [
         "0x0403",
         "0x6010"
       ]
     ],
-    "ldscript": "metal.default.lds",
     "mabi": "ilp32",
     "march": "rv32imac",
     "mcmodel": "medlow",
     "mcu": "fe310",
-    "freedom-e-sdk": {
-       "variant": "sifive-hifive1-revb"
-    },
     "zephyr": {
        "variant": "hifive1_revb"
     }
