@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-sifive.git"
   },
-  "version": "2.0.2",
+  "version": "2.0.3",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -40,7 +40,7 @@
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
-      "version": "~1.20100.0"
+      "version": "~2.20100.0"
     },
     "framework-zephyr-civetweb": {
       "optional": true,

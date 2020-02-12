@@ -1,13 +1,15 @@
 {
   "build": {
     "f_cpu": "450000000L",
+    "freedom-e-sdk": {
+      "ldscript": "metal.default.lds"
+    },
     "hwids": [
       [
         "0x002a",
         "0x15ba"
       ]
     ],
-    "ldscript": "metal.default.lds",
     "mabi": "ilp32",
     "march": "rv32imac",
     "mcmodel": "medlow",
