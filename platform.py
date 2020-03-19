@@ -112,7 +112,8 @@ class SifivePlatform(PlatformBase):
                         ],
                         "executable": ("bin/Renode"
                                        if system() == "Windows" else
-                                       "renode")
+                                       "renode"),
+                        "ready_pattern": "GDB server with all CPUs started on port"
 
                     },
                     "onboard": True
