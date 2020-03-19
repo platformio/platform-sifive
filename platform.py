@@ -78,26 +78,7 @@ class SifivePlatform(PlatformBase):
                                        if system() == "Windows" else
                                        "JLinkGDBServer")
                     },
-                    "onboard": tool in debug.get("onboard_tools", []),
-                    "init_cmds": [
-                        "define pio_reset_halt_target",
-                        "    monitor reset",
-                        "    monitor halt",
-                        "end",
-                        "",
-                        "define pio_reset_run_target",
-                        "    monitor clrbp",
-                        "    monitor reset",
-                        "    monitor go",
-                        "end",
-                        "",
-                        "target extended-remote $DEBUG_PORT",
-                        "monitor clrbp",
-                        "monitor speed auto",
-                        "pio_reset_halt_target",
-                        "$LOAD_CMDS",
-                        "$INIT_BREAK"
-                    ]  # FIXME: Remove custom "init_cmds" when PIO Core 4.1.1 released
+                    "onboard": tool in debug.get("onboard_tools", [])
                 }
 
             elif tool == "qemu":
