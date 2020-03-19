@@ -19,6 +19,7 @@
     "onboard_tools": [
       "ftdi"
     ],
+    "renode_machine": "hifive_unleashed.resc",
     "qemu_machine": "sifive_u"
   },
   "frameworks": [

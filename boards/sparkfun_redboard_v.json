@@ -24,7 +24,8 @@
     "svd_path": "FE310.svd",
     "onboard_tools": [
       "jlink"
-    ]
+    ],
+    "renode_machine": "sifive_fe310.resc"
   },
   "frameworks": [
     "freedom-e-sdk",
