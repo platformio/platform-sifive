@@ -112,7 +112,7 @@
     "tool-renode": {
       "type": "debugger",
       "optional": true,
-      "version": "~1.9.0"
+      "version": "~1.10900.0"
     },
     "tool-cmake": {
       "optional": true,
