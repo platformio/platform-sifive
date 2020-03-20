@@ -108,7 +108,9 @@ class SifivePlatform(PlatformBase):
                             "--disable-xwt",
                             "-e", "include @%s" % join(
                                 "scripts", "single-node", debug.get("renode_machine")),
-                            "-e", "machine StartGdbServer 3333 True"
+                            "-e", "machine StartGdbServer 3333 True",
+                            "-e", 'emulation CreateServerSocketTerminal 1234 "externalUART"',
+                            "-e", "connector Connect uart0 externalUART"
                         ],
                         "executable": ("bin/Renode"
                                        if system() == "Windows" else
