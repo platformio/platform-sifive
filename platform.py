@@ -50,12 +50,12 @@ class SifivePlatform(PlatformBase):
         if "tools" not in debug:
             debug['tools'] = {}
 
-        tools = ("jlink", "qemu", "ftdi", "minimodule",
+        tools = ("jlink", "qemu", "renode", "ftdi", "minimodule",
                  "olimex-arm-usb-tiny-h", "olimex-arm-usb-ocd-h",
                  "olimex-arm-usb-ocd", "olimex-jtag-tiny", "tumpa")
         for tool in tools:
-            if tool == "qemu":
-                if not debug.get("qemu_machine"):
+            if tool in ("qemu", "renode"):
+                if not debug.get("%s_machine" % tool):
                     continue
             elif (tool not in upload_protocols or tool in debug['tools']):
                 continue
@@ -78,26 +78,7 @@ class SifivePlatform(PlatformBase):
                                        if system() == "Windows" else
                                        "JLinkGDBServer")
                     },
-                    "onboard": tool in debug.get("onboard_tools", []),
-                    "init_cmds": [
-                        "define pio_reset_halt_target",
-                        "    monitor reset",
-                        "    monitor halt",
-                        "end",
-                        "",
-                        "define pio_reset_run_target",
-                        "    monitor clrbp",
-                        "    monitor reset",
-                        "    monitor go",
-                        "end",
-                        "",
-                        "target extended-remote $DEBUG_PORT",
-                        "monitor clrbp",
-                        "monitor speed auto",
-                        "pio_reset_halt_target",
-                        "$LOAD_CMDS",
-                        "$INIT_BREAK"
-                    ]  # FIXME: Remove custom "init_cmds" when PIO Core 4.1.1 released
+                    "onboard": tool in debug.get("onboard_tools", [])
                 }
 
             elif tool == "qemu":
@@ -114,6 +95,26 @@ class SifivePlatform(PlatformBase):
                         ],
                         "executable": "bin/qemu-system-riscv%s" % (
                             "64" if machine64bit else "32")
+                    },
+                    "onboard": True
+                }
+            elif tool == "renode":
+                assert debug.get("renode_machine"), (
+                    "Missing Renode machine ID for %s" % board.id)
+                debug['tools'][tool] = {
+                    "server": {
+                        "package": "tool-renode",
+                        "arguments": [
+                            "--disable-xwt",
+                            "-e", "include @%s" % join(
+                                "scripts", "single-node", debug.get("renode_machine")),
+                            "-e", "machine StartGdbServer 3333 True"
+                        ],
+                        "executable": ("bin/Renode"
+                                       if system() == "Windows" else
+                                       "renode"),
+                        "ready_pattern": "GDB server with all CPUs started on port"
+
                     },
                     "onboard": True
                 }

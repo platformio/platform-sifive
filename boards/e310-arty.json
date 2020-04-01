@@ -19,6 +19,7 @@
     "jlink_device": "FE310",
     "svd_path": "FE310.svd",
     "onboard_tools": ["ftdi"],
+    "renode_machine": "sifive_fe310.resc",
     "qemu_machine": "sifive_e"
   },
   "frameworks": [
