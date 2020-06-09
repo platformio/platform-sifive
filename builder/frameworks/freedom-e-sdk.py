@@ -102,10 +102,10 @@ def _get_freertos_config(use_segger_systemview=False, use_mpu_wrappers=False):
         config["SYSVIEW_RECORD_ENTER_ISR"] = board_config.get(
             "build.freertos.sysview_record_enter_isr", "SEGGER_SYSVIEW_RecordEnterISR")
         config["SYSVIEW_RECORD_EXIT_ISR"] = board_config.get(
-            "build.freertos.sysview_record_enter_isr", "SEGGER_SYSVIEW_RecordExitISR")
+            "build.freertos.sysview_record_exit_isr", "SEGGER_SYSVIEW_RecordExitISR")
         config["SYSVIEW_RECORD_EXIT_ISR_TO_SCHEDULER"] = board_config.get(
             "build.freertos.sysview_record_exit_isr_to_scheduler",
-            "SEGGER_SYSVIEW_RecordEnterISR"
+            "SEGGER_SYSVIEW_RecordExitISRToScheduler"
         )
 
     return config
@@ -285,7 +285,8 @@ if "freertos" in env.subst("$PIOFRAMEWORK"):
 if not board_config.get("build.ldscript", ""):
     ldscript = board_config.get("build.freedom-e-sdk.ldscript", "")
     if "freertos" in env.subst("$PIOFRAMEWORK"):
-        ldscript = "metal.freertos.lds"
+        ldscript = board_config.get(
+            "build.freertos.ldscript", "metal.freertos.lds")
     env.Replace(LDSCRIPT_PATH=ldscript)
 
 env.Prepend(LIBS=libs)
