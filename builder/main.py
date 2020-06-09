@@ -61,14 +61,22 @@ env.Append(
     )
 )
 
-if not env.get("PIOFRAMEWORK"):
+pioframework = env.get("PIOFRAMEWORK", [])
+
+if not pioframework:
     env.SConscript("frameworks/_bare.py", exports="env")
 
 #
 # Target: Build executable and linkable firmware
 #
 
-if "zephyr" in env.get("PIOFRAMEWORK", []):
+if pioframework == ["freertos"]:
+    sys.stderr.write(
+        "Error: FreeRTOS cannot be used as a standalone framework"
+        " without SiFive Freedom E SDK.\n")
+    env.Exit(1)
+
+if "zephyr" in pioframework:
     env.SConscript(
         join(platform.get_package_dir(
             "framework-zephyr"), "scripts", "platformio", "platformio-build-pre.py"),
