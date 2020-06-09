@@ -135,13 +135,6 @@ def build_freertos_libs():
                  "RISC-V"),
             join(FRAMEWORK_DIR, "FreeRTOS-metal", "FreeRTOS-Kernel", "portable", "GCC",
                  "RISC-V", "chip_specific_extensions", "RV32I_CLINT_no_extensions")
-        ],
-
-        LINKFLAGS=[
-            "-Wl,--defsym,__stack_size=" + board_config.get(
-                "build.freertos.stack_size", "0x200"),
-            "-Wl,--defsym,__heap_size=" + board_config.get(
-                "build.freertos.heap_size", "0x200"),
         ]
     )
 
@@ -238,6 +231,26 @@ env.Append(
 if not is_valid_target(target):
     print ("Could not find BSP package for %s" % target)
     env.Exit(1)
+
+#
+# Configure stack and heap sizes
+#
+
+if board_config.get("build.freedom-e-sdk.stack_size", ""):
+    env.Append(
+        LINKFLAGS=[
+            "-Wl,--defsym,__stack_size=" + board_config.get(
+                "build.freedom-e-sdk.stack_size")
+        ]
+    )
+
+if board_config.get("build.freedom-e-sdk.heap_size", ""):
+    env.Append(
+        LINKFLAGS=[
+            "-Wl,--defsym,__heap_size=" + board_config.get(
+                "build.freedom-e-sdk.heap_size"),
+        ]
+    )
 
 #
 # Copy target header files
