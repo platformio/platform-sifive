@@ -23,7 +23,8 @@
     "qemu_machine": "sifive_e"
   },
   "frameworks": [
-    "freedom-e-sdk"
+    "freedom-e-sdk",
+    "freertos"
   ],
   "name": "Arty FPGA Dev Kit",
   "upload": {

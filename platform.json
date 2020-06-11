@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-sifive.git"
   },
-  "version": "2.1.0",
+  "version": "2.2.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -21,6 +21,9 @@
     "freedom-e-sdk": {
       "package": "framework-freedom-e-sdk",
       "script": "builder/frameworks/freedom-e-sdk.py"
+    },
+    "freertos": {
+      "script": "builder/frameworks/freertos.py"
     },
     "zephyr": {
       "package": "framework-zephyr",
@@ -35,7 +38,7 @@
     "framework-freedom-e-sdk": {
       "optional": true,
       "type": "framework",
-      "version": "~2.201908.0"
+      "version": "~2.20050001.200607"
     },
     "framework-zephyr": {
       "type": "framework",

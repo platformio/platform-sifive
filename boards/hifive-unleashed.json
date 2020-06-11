@@ -23,7 +23,8 @@
     "qemu_machine": "sifive_u"
   },
   "frameworks": [
-    "freedom-e-sdk"
+    "freedom-e-sdk",
+    "freertos"
   ],
   "name": "HiFive Unleashed",
   "upload": {

@@ -28,6 +28,7 @@
   },
   "frameworks": [
     "freedom-e-sdk",
+    "freertos",
     "zephyr"
   ],
   "name": "HiFive1 Rev B",
