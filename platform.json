@@ -12,7 +12,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-sifive.git"
   },
-  "version": "2.2.0",
+  "version": "2.2.1",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -20,10 +20,16 @@
   "frameworks": {
     "freedom-e-sdk": {
       "package": "framework-freedom-e-sdk",
-      "script": "builder/frameworks/freedom-e-sdk.py"
+      "script": "builder/frameworks/freedom-e-sdk.py",
+      "description": "Open Source Software for Developing on the SiFive Freedom E Platform",
+      "url": "https://github.com/sifive/freedom-e-sdk",
+      "title": "Freedom E SDK"
     },
     "freertos": {
-      "script": "builder/frameworks/freertos.py"
+      "script": "builder/frameworks/freertos.py",
+      "description": "FreeRTOS is a real-time operating system kernel for embedded devices that has been ported to 40 microcontroller platforms",
+      "url": "https://www.freertos.org",
+      "title": "FreeRTOS"
     },
     "zephyr": {
       "package": "framework-zephyr",
