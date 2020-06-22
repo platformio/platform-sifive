@@ -2,8 +2,7 @@
   "name": "sifive",
   "title": "SiFive",
   "description": "SiFive brings the power of open source and software automation to the semiconductor industry, making it possible to develop new hardware faster and more affordably than ever before. ",
-  "url": "https://sifive.com",
-  "homepage": "http://platformio.org/platforms/sifive",
+  "homepage": "https://sifive.com",
   "license": "Apache-2.0",
   "engines": {
     "platformio": "<5"
