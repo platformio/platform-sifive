@@ -21,13 +21,13 @@
       "package": "framework-freedom-e-sdk",
       "script": "builder/frameworks/freedom-e-sdk.py",
       "description": "Open Source Software for Developing on the SiFive Freedom E Platform",
-      "url": "https://github.com/sifive/freedom-e-sdk",
+      "homepage": "https://github.com/sifive/freedom-e-sdk",
       "title": "Freedom E SDK"
     },
     "freertos": {
       "script": "builder/frameworks/freertos.py",
       "description": "FreeRTOS is a real-time operating system kernel for embedded devices that has been ported to 40 microcontroller platforms",
-      "url": "https://www.freertos.org",
+      "homepage": "https://www.freertos.org",
       "title": "FreeRTOS"
     },
     "zephyr": {
