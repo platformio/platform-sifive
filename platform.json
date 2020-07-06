@@ -2,8 +2,7 @@
   "name": "sifive",
   "title": "SiFive",
   "description": "SiFive brings the power of open source and software automation to the semiconductor industry, making it possible to develop new hardware faster and more affordably than ever before. ",
-  "url": "https://sifive.com",
-  "homepage": "http://platformio.org/platforms/sifive",
+  "homepage": "https://sifive.com",
   "license": "Apache-2.0",
   "engines": {
     "platformio": "<5"
@@ -12,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-sifive.git"
   },
-  "version": "2.2.1",
+  "version": "2.3.0",
   "packageRepositories": [
     "https://dl.bintray.com/platformio/dl-packages/manifest.json",
     "http://dl.platformio.org/packages/manifest.json"
@@ -22,13 +21,13 @@
       "package": "framework-freedom-e-sdk",
       "script": "builder/frameworks/freedom-e-sdk.py",
       "description": "Open Source Software for Developing on the SiFive Freedom E Platform",
-      "url": "https://github.com/sifive/freedom-e-sdk",
+      "homepage": "https://github.com/sifive/freedom-e-sdk",
       "title": "Freedom E SDK"
     },
     "freertos": {
       "script": "builder/frameworks/freertos.py",
       "description": "FreeRTOS is a real-time operating system kernel for embedded devices that has been ported to 40 microcontroller platforms",
-      "url": "https://www.freertos.org",
+      "homepage": "https://www.freertos.org",
       "title": "FreeRTOS"
     },
     "zephyr": {
@@ -49,67 +48,75 @@
     "framework-zephyr": {
       "type": "framework",
       "optional": true,
-      "version": "~2.20200.0"
-    },
-    "framework-zephyr-civetweb": {
-      "optional": true,
-      "version": "~0.20200.190807"
-    },
-    "framework-zephyr-fatfs": {
-      "optional": true,
-      "version": "~0.20200.191125"
-    },
-    "framework-zephyr-libmetal": {
-      "optional": true,
-      "version": "~0.20200.190530"
-    },
-    "framework-zephyr-lvgl": {
-      "optional": true,
-      "version": "~0.20200.191207"
-    },
-    "framework-zephyr-mbedtls": {
-      "optional": true,
-      "version": "~0.20200.200206"
-    },
-    "framework-zephyr-mcumgr": {
-      "optional": true,
-      "version": "~0.20200.200117"
-    },
-    "framework-zephyr-open-amp": {
-      "optional": true,
-      "version": "~0.20200.190612"
-    },
-    "framework-zephyr-openthread": {
-      "optional": true,
-      "version": "~0.20200.191014"
-    },
-    "framework-zephyr-segger": {
-      "optional": true,
-      "version": "~0.20200.190421"
-    },
-    "framework-zephyr-tinycbor": {
-      "optional": true,
-      "version": "~0.20200.191016"
-    },
-    "framework-zephyr-littlefs": {
-      "optional": true,
-      "version": "~0.20200.190811"
-    },
-    "framework-zephyr-mipi-sys-t": {
-      "optional": true,
-      "version": "~0.20200.191024"
+      "version": "~2.20300.0"
     },
     "framework-zephyr-canopennode": {
       "optional": true,
-      "version": "~0.20200.200115"
+      "version": "0.0.0-alpha+sha.5c6b0566d5"
     },
-    "framework-zephyr-loramac-node": {
+    "framework-zephyr-civetweb": {
       "optional": true,
-      "version": "~0.20200.191220"
+      "version": "0.0.0-alpha+sha.99129c5efc"
+    },
+    "framework-zephyr-fatfs": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.9ee6b9b951"
+    },
+    "framework-zephyr-libmetal": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.3c3c9ec83b"
+    },
+    "framework-zephyr-lvgl": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.74fc2e753a"
+    },
+    "framework-zephyr-mbedtls": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.4bf099f125"
     },
     "framework-zephyr-mcuboot": {
       "optional": true,
-      "version": "~0.20200.200219"
+      "version": "0.0.0-alpha+sha.e88113bbeb"
+    },
+    "framework-zephyr-mcumgr": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.5885efb7ca"
+    },
+    "framework-zephyr-open-amp": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.724f7e2a45"
+    },
+    "framework-zephyr-loramac-node": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.29e516ec58"
+    },
+    "framework-zephyr-openthread": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.a83d18cf18"
+    },
+    "framework-zephyr-segger": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.6fcf61606d"
+    },
+    "framework-zephyr-tinycbor": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.40daca97b4"
+    },
+    "framework-zephyr-tinycrypt": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.3e9a49d267"
+    },
+    "framework-zephyr-littlefs": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.0aefdda69d"
+    },
+    "framework-zephyr-mipi-sys-t": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.957d46bc3c"
+    },
+    "framework-zephyr-trusted-firmware-m": {
+      "optional": true,
+      "version": "0.0.0-alpha+sha.7de2daa196"
     },
     "tool-openocd-riscv": {
       "optional": true,
