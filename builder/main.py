@@ -146,21 +146,32 @@ if upload_protocol.startswith("jlink"):
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 elif upload_protocol in debug_tools:
-    openocd_args = [
-        "-c",
-        "debug_level %d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1),
-        "-s", platform.get_package_dir("tool-openocd-riscv") or ""
-    ]
-    openocd_args.extend(
-        debug_tools.get(upload_protocol).get("server").get("arguments", []))
-    openocd_args.extend([
-        "-c", "program {$SOURCE} %s verify; shutdown;" %
-        board_config.get("upload").get("flash_start", "")
-    ])
+    if upload_protocol == "renode":
+        uploader = "renode"
+        tool_args = [arg for arg in debug_tools.get(upload_protocol).get(
+            "server").get("arguments", []) if arg != "--disable-xwt"]
+        tool_args.extend([
+            "-e", "sysbus LoadELF @$SOURCE",
+            "-e", "start"
+        ])
+    else:
+        uploader = "openocd"
+        tool_args = [
+            "-c",
+            "debug_level %d" % (2 if int(ARGUMENTS.get("PIOVERBOSE", 0)) else 1),
+            "-s", platform.get_package_dir("tool-openocd-riscv") or ""
+        ]
+        tool_args.extend(
+            debug_tools.get(upload_protocol).get("server").get("arguments", []))
+        tool_args.extend([
+            "-c", "program {$SOURCE} %s verify; shutdown;" %
+            board_config.get("upload").get("flash_start", "")
+        ])
     env.Replace(
-        UPLOADER="openocd",
-        UPLOADERFLAGS=openocd_args,
-        UPLOADCMD="$UPLOADER $UPLOADERFLAGS")
+        UPLOADER=uploader,
+        UPLOADERFLAGS=tool_args,
+        UPLOADCMD="$UPLOADER $UPLOADERFLAGS"
+    )
     upload_actions = [env.VerboseAction("$UPLOADCMD", "Uploading $SOURCE")]
 
 # custom upload tool
