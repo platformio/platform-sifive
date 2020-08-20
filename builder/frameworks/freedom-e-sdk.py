@@ -44,6 +44,8 @@ assert FRAMEWORK_DIR and isdir(FRAMEWORK_DIR)
 
 env.SConscript("_bare.py", exports="env")
 
+board_config = env.BoardConfig()
+
 
 def is_valid_target(target):
     target_dir = join(FRAMEWORK_DIR, "bsp", target)
@@ -185,7 +187,6 @@ def build_system_view_lib():
     )
 
 
-board_config = env.BoardConfig()
 target = board_config.get(
     "build.freedom-e-sdk.variant", env.subst("sifive-${BOARD}"))
 if env.subst("$BOARD") == "e310-arty":

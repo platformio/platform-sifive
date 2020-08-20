@@ -11,3 +11,12 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+
+from SCons.Script import DefaultEnvironment
+
+env = DefaultEnvironment()
+
+if "freedom-e-sdk" not in env.subst("$PIOFRAMEWORK"):
+    # Force SDK package to build if only FreeRTOS is specified in framework list
+    env.SConscript("freedom-e-sdk.py")

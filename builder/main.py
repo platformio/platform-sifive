@@ -71,12 +71,6 @@ if not pioframework:
 # Target: Build executable and linkable firmware
 #
 
-if pioframework == ["freertos"]:
-    sys.stderr.write(
-        "Error: FreeRTOS cannot be used as a standalone framework"
-        " without SiFive Freedom E SDK.\n")
-    env.Exit(1)
-
 if "zephyr" in pioframework:
     env.SConscript(
         join(platform.get_package_dir(
