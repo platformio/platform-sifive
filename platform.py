@@ -30,6 +30,14 @@ class SifivePlatform(PlatformBase):
             if "windows" not in get_systype():
                 self.packages['tool-gperf']['optional'] = False
 
+        upload_protocol = variables.get(
+            "upload_protocol",
+            self.board_config(variables.get("board")).get(
+                "upload.protocol", ""))
+
+        if upload_protocol == "renode" and "debug" not in targets:
+            self.packages['tool-renode']['type'] = "uploader"
+
         return PlatformBase.configure_default_packages(self, variables, targets)
 
     def get_boards(self, id_=None):
