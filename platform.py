@@ -12,8 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from os.path import isfile, join
-from platform import system
+import copy
+import os
+import platform
 
 from platformio.managers.platform import PlatformBase
 from platformio.util import get_systype
@@ -28,7 +29,7 @@ class SifivePlatform(PlatformBase):
                         "tool-cmake", "tool-dtc", "tool-ninja"):
                     self.packages[p]["optional"] = False
             if "windows" not in get_systype():
-                self.packages['tool-gperf']['optional'] = False
+                self.packages["tool-gperf"]["optional"] = False
 
         upload_protocol = variables.get(
             "upload_protocol",
@@ -36,7 +37,7 @@ class SifivePlatform(PlatformBase):
                 "upload.protocol", ""))
 
         if upload_protocol == "renode" and "debug" not in targets:
-            self.packages['tool-renode']['type'] = "uploader"
+            self.packages["tool-renode"]["type"] = "uploader"
 
         return PlatformBase.configure_default_packages(self, variables, targets)
 
@@ -56,7 +57,7 @@ class SifivePlatform(PlatformBase):
         upload_protocols = board.manifest.get("upload",
                                               {}).get("protocols", [])
         if "tools" not in debug:
-            debug['tools'] = {}
+            debug["tools"] = {}
 
         tools = ("jlink", "qemu", "renode", "ftdi", "minimodule",
                  "olimex-arm-usb-tiny-h", "olimex-arm-usb-ocd-h",
@@ -65,25 +66,24 @@ class SifivePlatform(PlatformBase):
             if tool in ("qemu", "renode"):
                 if not debug.get("%s_machine" % tool):
                     continue
-            elif (tool not in upload_protocols or tool in debug['tools']):
+            elif (tool not in upload_protocols or tool in debug["tools"]):
                 continue
             if tool == "jlink":
                 assert debug.get("jlink_device"), (
                     "Missed J-Link Device ID for %s" % board.id)
-                debug['tools'][tool] = {
+                debug["tools"][tool] = {
                     "server": {
                         "package": "tool-jlink",
                         "arguments": [
                             "-singlerun",
                             "-if", "JTAG",
                             "-select", "USB",
-                            "-speed", "1000",
                             "-jtagconf", "-1,-1",
                             "-device", debug.get("jlink_device"),
                             "-port", "2331"
                         ],
                         "executable": ("JLinkGDBServerCL.exe"
-                                       if system() == "Windows" else
+                                       if platform.system() == "Windows" else
                                        "JLinkGDBServer")
                     },
                     "onboard": tool in debug.get("onboard_tools", [])
@@ -91,7 +91,7 @@ class SifivePlatform(PlatformBase):
 
             elif tool == "qemu":
                 machine64bit = "64" in board.get("build.mabi")
-                debug['tools'][tool] = {
+                debug["tools"][tool] = {
                     "server": {
                         "package": "tool-qemu-riscv",
                         "arguments": [
@@ -109,17 +109,17 @@ class SifivePlatform(PlatformBase):
             elif tool == "renode":
                 assert debug.get("renode_machine"), (
                     "Missing Renode machine ID for %s" % board.id)
-                debug['tools'][tool] = {
+                debug["tools"][tool] = {
                     "server": {
                         "package": "tool-renode",
                         "arguments": [
                             "--disable-xwt",
-                            "-e", "include @%s" % join(
+                            "-e", "include @%s" % os.path.join(
                                 "scripts", "single-node", debug.get("renode_machine")),
                             "-e", "machine StartGdbServer 3333 True"
                         ],
                         "executable": ("bin/Renode"
-                                       if system() == "Windows" else
+                                       if platform.system() == "Windows" else
                                        "renode"),
                         "ready_pattern": "GDB server with all CPUs started on port"
 
@@ -131,20 +131,20 @@ class SifivePlatform(PlatformBase):
                     "-s", "$PACKAGE_DIR/share/openocd/scripts"
                 ]
                 sdk_dir = self.get_package_dir("framework-freedom-e-sdk")
-                board_cfg = join(
+                board_cfg = os.path.join(
                     sdk_dir or "", "bsp", "sifive-%s" % board.id, "openocd.cfg")
-                if isfile(board_cfg):
+                if os.path.isfile(board_cfg):
                     server_args.extend(["-f", board_cfg])
                 elif board.id == "e310-arty":
                     server_args.extend([
-                        "-f", join("interface", "ftdi", "%s.cfg" % (
+                        "-f", os.path.join("interface", "ftdi", "%s.cfg" % (
                             "arty-onboard-ftdi" if tool == "ftdi" else tool)),
-                        "-f", join(
+                        "-f", os.path.join(
                             sdk_dir or "", "bsp", "freedom-e310-arty", "openocd.cfg")
                     ])
                 else:
                     assert "Unknown debug configuration", board.id
-                debug['tools'][tool] = {
+                debug["tools"][tool] = {
                     "server": {
                         "package": "tool-openocd-riscv",
                         "executable": "bin/openocd",
@@ -154,5 +154,21 @@ class SifivePlatform(PlatformBase):
                     "init_cmds": debug.get("init_cmds", None)
                 }
 
-        board.manifest['debug'] = debug
+        board.manifest["debug"] = debug
         return board
+
+    def configure_debug_options(self, initial_debug_options, ide_data):
+        debug_options = copy.deepcopy(initial_debug_options)
+        server_executable = debug_options["server"]["executable"].lower()
+        adapter_speed = initial_debug_options.get("speed")
+        if adapter_speed:
+            if "openocd" in server_executable:
+                debug_options["server"]["arguments"].extend(
+                    ["-c", "adapter_khz %s" % adapter_speed]
+                )
+            elif "jlink" in server_executable:
+                debug_options["server"]["arguments"].extend(
+                    ["-speed", adapter_speed]
+                )
+
+        return debug_options
