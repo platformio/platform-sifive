@@ -129,7 +129,7 @@ if upload_protocol.startswith("jlink"):
         UPLOADER="JLink.exe" if system() == "Windows" else "JLinkExe",
         UPLOADERFLAGS=[
             "-device", env.BoardConfig().get("debug", {}).get("jlink_device"),
-            "-speed", "1000",
+            "-speed", env.GetProjectOption("debug_speed", "4000"),
             "-if", "JTAG",
             "-jtagconf", "-1,-1",
             "-autoconnect", "1",
@@ -158,6 +158,10 @@ elif upload_protocol in debug_tools:
         ]
         tool_args.extend(
             debug_tools.get(upload_protocol).get("server").get("arguments", []))
+        if env.GetProjectOption("debug_speed"):
+            tool_args.extend(
+                ["-c", "adapter_khz %s" % env.GetProjectOption("debug_speed")]
+            )
         tool_args.extend([
             "-c", "program {$SOURCE} %s verify; shutdown;" %
             board_config.get("upload").get("flash_start", "")
