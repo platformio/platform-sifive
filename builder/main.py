@@ -85,6 +85,7 @@ if "nobuild" in COMMAND_LINE_TARGETS:
 else:
     target_elf = env.BuildProgram()
     target_hex = env.ElfToHex(join("$BUILD_DIR", "${PROGNAME}"), target_elf)
+    env.Depends(target_hex, "checkprogsize")
 
 AlwaysBuild(env.Alias("nobuild", target_hex))
 target_buildprog = env.Alias("buildprog", target_hex, target_hex)
