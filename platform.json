@@ -76,7 +76,7 @@
       "type": "debugger",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.10900.0"
+      "version": "^1"
     },
     "tool-cmake": {
       "optional": true,
