@@ -16,7 +16,7 @@
     "type": "git",
     "url": "https://github.com/platformio/platform-sifive.git"
   },
-  "version": "4.1.0",
+  "version": "5.0.0",
   "frameworks": {
     "freedom-e-sdk": {
       "package": "framework-freedom-e-sdk",
@@ -52,7 +52,7 @@
       "type": "framework",
       "optional": true,
       "owner": "platformio",
-      "version": "~2.20600.0"
+      "version": "~2.20700.0"
     },
     "tool-openocd-riscv": {
       "optional": true,
@@ -76,12 +76,12 @@
       "type": "debugger",
       "optional": true,
       "owner": "platformio",
-      "version": "~1.10900.0"
+      "version": "^1"
     },
     "tool-cmake": {
       "optional": true,
       "owner": "platformio",
-      "version": "~3.16.0"
+      "version": "~3.21.0"
     },
     "tool-dtc": {
       "optional": true,
