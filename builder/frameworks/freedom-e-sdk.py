@@ -34,7 +34,9 @@ try:
 except ImportError:
     env.Execute(
         env.VerboseAction(
-            "$PYTHONEXE -m pip install pyparsing==2.4.5 Jinja2==2.10.1",
+            # Note: a specific version of MarkupSafe is requrired to avoid
+            # the ImportError of 'soft_unicode' in Jinja2
+            "$PYTHONEXE -m pip install pyparsing==2.4.5 MarkupSafe==2.0.1 Jinja2==2.10.1",
             "Installing Freedom E SDK's Python dependencies",
         )
     )
