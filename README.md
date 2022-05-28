@@ -1,4 +1,4 @@
-# SiFive: development platform for [PlatformIO](http://platformio.org)
+# SiFive: development platform for [PlatformIO](https://platformio.org)
 
 [![Build Status](https://github.com/platformio/platform-sifive/workflows/Examples/badge.svg)](https://github.com/platformio/platform-sifive/actions)
 
@@ -9,7 +9,7 @@ SiFive brings the power of open source and software automation to the semiconduc
 
 # Usage
 
-1. [Install PlatformIO](http://platformio.org)
+1. [Install PlatformIO](https://platformio.org)
 2. Create PlatformIO project and configure a platform option in [platformio.ini](https://docs.platformio.org/page/projectconf.html) file:
 
 ## Stable version
