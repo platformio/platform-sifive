@@ -22,29 +22,32 @@ Import("env")
 
 board_config = env.BoardConfig()
 
+machine_flags = [
+    "-march=%s" % board_config.get("build.march"),
+    "-mabi=%s" % board_config.get("build.mabi"),
+    "-mcmodel=%s" % board_config.get("build.mcmodel")
+]
+
 env.Append(
-    CCFLAGS=[
-        "-Os",
-        "-Wall",  # show warnings
-        "-march=%s" % board_config.get("build.march"),
-        "-mabi=%s" % board_config.get("build.mabi"),
-        "-mcmodel=%s" % board_config.get("build.mcmodel")
+    ASFLAGS=machine_flags,
+
+    ASPPFLAGS=[
+        "-x", "assembler-with-cpp",
     ],
 
-    LINKFLAGS=[
+    CCFLAGS=machine_flags + [
+        "-Os",
+        "-Wall",  # show warnings
+    ],
+
+    LINKFLAGS=machine_flags + [
         "-Os",
         "-ffunction-sections",
         "-fdata-sections",
         "-nostartfiles",
-        "-march=%s" % board_config.get("build.march"),
-        "-mabi=%s" % board_config.get("build.mabi"),
-        "-mcmodel=%s" % board_config.get("build.mcmodel"),
         "--specs=nano.specs",
         "-Wl,--gc-sections"
     ],
 
     LIBS=["c"],
 )
-
-# copy CCFLAGS to ASFLAGS (-x assembler-with-cpp mode)
-env.Append(ASFLAGS=env.get("CCFLAGS", [])[:])
