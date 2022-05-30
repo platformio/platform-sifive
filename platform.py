@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import copy
 import os
 import sys
 
@@ -20,6 +19,7 @@ from platformio.public import PlatformBase
 
 
 IS_WINDOWS = sys.platform.startswith("win")
+
 
 class SifivePlatform(PlatformBase):
 
@@ -157,18 +157,14 @@ class SifivePlatform(PlatformBase):
         board.manifest["debug"] = debug
         return board
 
-    def configure_debug_options(self, initial_debug_options, ide_data):
-        debug_options = copy.deepcopy(initial_debug_options)
-        server_executable = debug_options["server"]["executable"].lower()
-        adapter_speed = initial_debug_options.get("speed")
-        if adapter_speed:
+    def configure_debug_session(self, debug_config):
+        if debug_config.speed:
+            server_executable = (debug_config.server or {}).get("executable", "").lower()
             if "openocd" in server_executable:
-                debug_options["server"]["arguments"].extend(
-                    ["-c", "adapter_khz %s" % adapter_speed]
+                debug_config.server["arguments"].extend(
+                    ["-c", "adapter speed %s" % debug_config.speed]
                 )
             elif "jlink" in server_executable:
-                debug_options["server"]["arguments"].extend(
-                    ["-speed", adapter_speed]
+                debug_config.server["arguments"].extend(
+                    ["-speed", debug_config.speed]
                 )
-
-        return debug_options
