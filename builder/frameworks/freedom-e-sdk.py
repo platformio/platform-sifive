@@ -195,7 +195,7 @@ if env.subst("$BOARD") == "e310-arty":
     target = "freedom-e310-arty"
 
 env.Append(
-    ASFLAGS=[
+    ASPPFLAGS=[
         "--specs=nano.specs"
     ],
     CCFLAGS=[
