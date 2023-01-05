@@ -103,8 +103,7 @@ class SifivePlatform(PlatformBase):
                         ],
                         "executable": "bin/qemu-system-riscv%s" % (
                             "64" if machine64bit else "32")
-                    },
-                    "onboard": True
+                    }
                 }
             elif tool == "renode":
                 assert debug.get("renode_machine"), (
@@ -123,8 +122,7 @@ class SifivePlatform(PlatformBase):
                                        "renode"),
                         "ready_pattern": "GDB server with all CPUs started on port"
 
-                    },
-                    "onboard": True
+                    }
                 }
             else:
                 server_args = [
